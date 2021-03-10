@@ -1,0 +1,7 @@
+POST http://localhost:8000/api/habitacion
+Content-Type: application/json
+
+{
+    "cantPersonas": 10,
+    "ocupada": true
+}
