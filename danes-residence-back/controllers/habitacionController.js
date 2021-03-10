@@ -12,12 +12,6 @@ exports.crearHabitacion = async (request, response) => {
     try {
         const habitacion = request.body
     
-        if(!habitacion.codigo){
-            return response.status(400).json({
-                error: 'required "codigo" field is missing'
-            })
-        }
-    
         const newHabitacion = new Habitacion({
             Codigo: habitacion.codigo,
             CantPersonas: habitacion.cantPersonas,
@@ -33,7 +27,6 @@ exports.crearHabitacion = async (request, response) => {
         console.log(error)
         response.status(500).send('Error al crear la habitación')
     }
-    
 }
 
 exports.obtenerHabitaciones = async (request, response) => {
@@ -59,4 +52,55 @@ exports.obtenerHabitacion = async (request, response) => {
     .catch(error => {
         next(error)
     })
+}
+
+exports.actualizarHabitacion = async (request, response) => {
+    // Revisar si hay errores
+    const errores = validationResult(request);
+    if( !errores.isEmpty() ) {
+        return response.status(400).json({errores: errores.array() })
+    }
+
+    // extraer la información de la habitacion    
+    const newHabitacion = new Habitacion({
+        _id: request.params.id,
+        Codigo: request.body.codigo,
+        CantPersonas: request.body.cantPersonas,
+        Ocupada: request.body.ocupada
+    })
+
+    try {
+        // revisar el ID 
+        console.log(request.params.id)
+        let habitacion = await Habitacion.findById(request.params.id);
+        if(!habitacion) {
+            return response.status(404).json({msg: 'Habitación no encontrada'})
+        }
+
+        // actualizar
+        habitacion = await Habitacion.findByIdAndUpdate({ _id: request.params.id }, { $set : newHabitacion}, { new: false });
+
+        response.json({newHabitacion});
+    } catch (error) {
+        console.log(error);
+        response.status(500).send('Error en el servidor');
+    }
+}
+
+exports.eliminarHabitacion = async (request, response) => {
+    try {
+        // revisar el ID 
+        let habitacion = await Habitacion.findById(request.params.id);
+        if(!habitacion) {
+            return response.status(404).json({msg: 'Habitación no encontrada'})
+        }
+
+        // Eliminar habitacion
+        await Habitacion.findOneAndRemove({ _id : request.params.id });
+        response.json({ msg: 'Habitacion eliminada '})
+
+    } catch (error) {
+        console.log(error);
+        response.status(500).send('Error en el servidor')
+    }
 }

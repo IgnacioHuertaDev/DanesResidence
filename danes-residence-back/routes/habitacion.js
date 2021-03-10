@@ -28,18 +28,18 @@ router.get('/:id',
 )
 
 // Actualizar habitacion via ID
-// router.put('/:id', 
-//     auth,
-//     [
-//         check('nombre', 'El nombre del proyecto es obligatoio').not().isEmpty()
-//     ],
-//     habitacionController.actualizarHabitacion
-// );
+router.put('/:id', 
+    auth,
+    [
+        check('codigo', 'El codigo de la habitación es obligatorio').not().isEmpty()
+    ],
+    habitacionController.actualizarHabitacion
+);
 
-// // Eliminar una habitacion
-// router.delete('/:id', 
-//     auth,
-//     habitacionController.eliminarHabitacion
-// );
+// Eliminar una habitacion
+router.delete('/:id', 
+    auth,
+    habitacionController.eliminarHabitacion
+);
 
 module.exports = router;
