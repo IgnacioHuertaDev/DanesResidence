@@ -18,6 +18,7 @@ app.get('/', (req, res) => {
 });
 
 app.use('/api/habitacion', require('./routes/habitacion'));
+app.use('/api/reserva', require('./routes/reserva'));
 
 // app.use((error, request, response, next) => {
 //   console.error('estamo en el next padre' + error.name)

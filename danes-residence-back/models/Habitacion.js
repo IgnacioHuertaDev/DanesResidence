@@ -3,7 +3,14 @@ const { Schema, model } = require('mongoose')
 const habitacionSchema = new Schema({
     Codigo: String,
     CantPersonas: Number,
-    Ocupada: Boolean
+    Reservas: [
+        {
+            mail: String,
+            nombre: String,
+            telefono: String,
+            fecha: Date
+        }
+    ]
 })
 
 habitacionSchema.set('toJSON', {

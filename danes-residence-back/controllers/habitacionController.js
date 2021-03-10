@@ -15,7 +15,8 @@ exports.crearHabitacion = async (request, response) => {
         const newHabitacion = new Habitacion({
             Codigo: habitacion.codigo,
             CantPersonas: habitacion.cantPersonas,
-            Ocupada: habitacion.ocupada
+            Ocupada: habitacion.ocupada,
+            Reservas: habitacion.reservas
         })
     
         await newHabitacion.save().then(habitacionGuardada => {
@@ -66,7 +67,8 @@ exports.actualizarHabitacion = async (request, response) => {
         _id: request.params.id,
         Codigo: request.body.codigo,
         CantPersonas: request.body.cantPersonas,
-        Ocupada: request.body.ocupada
+        Ocupada: request.body.ocupada,
+        Reservas: request.body.reservas
     })
 
     try {
@@ -93,6 +95,9 @@ exports.eliminarHabitacion = async (request, response) => {
         let habitacion = await Habitacion.findById(request.params.id);
         if(!habitacion) {
             return response.status(404).json({msg: 'Habitación no encontrada'})
+        }
+        if(habitacion.Reservas.length > 0) {
+            return response.status(400).error({msg: 'No se permite eliminar habitaciones con reservas asignadas'})
         }
 
         // Eliminar habitacion

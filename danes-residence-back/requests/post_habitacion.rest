@@ -5,3 +5,32 @@ Content-Type: application/json
     "cantPersonas": 10,
     "ocupada": true
 }
+
+###
+POST http://localhost:8000/api/habitacion
+Content-Type: application/json
+
+{
+    "codigo": "5123",
+    "cantPersonas": 5,
+    "reservas": [
+        {
+          "mail": "efra@efra",
+          "nombre": "efra",
+          "telefono": "123345",
+          "fecha": "2021-03-01T00:00:00.001Z"
+        },
+        {
+          "mail": "efra@efra",
+          "nombre": "santi",
+          "telefono": "123345",
+          "fecha": "2022-03-01T00:00:00.001Z"
+        },
+        {
+          "mail": "efra@efra",
+          "nombre": "nacho",
+          "telefono": "123345",
+          "fecha": "2023-03-01T00:00:00.001Z"
+        }
+    ]
+}
