@@ -1,0 +1,23 @@
+PUT http://localhost:8000/api/habitacion/60469993aefc733b54b754de
+Content-Type: application/json
+
+{
+    "codigo": "1A",
+    "cantPersonas": 6,
+    "ocupada": true,
+    "reservas": [
+        {
+            "name": "Test 1"
+        },
+        {
+            "name": "Test 2"
+        },
+        {
+            "name": "Test 3"
+        },
+        {
+            "name": "Test 4"
+        }
+        
+    ]
+}
