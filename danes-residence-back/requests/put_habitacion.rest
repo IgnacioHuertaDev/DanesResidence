@@ -1,0 +1,8 @@
+PUT http://localhost:8000/api/habitacion/60469993aefc733b54b754de
+Content-Type: application/json
+
+{
+    "codigo": "1A",
+    "cantPersonas": 6,
+    "ocupada": true
+}
